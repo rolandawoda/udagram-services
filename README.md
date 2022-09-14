@@ -168,3 +168,5 @@ docker push [Dockerhub-username]/udagram-frontend:v6
 Run these commands from the /udagram-deployment directory
 Rolling update the containers of "frontend" deployment
 kubectl set image deployment frontend frontend=[Dockerhub-username]/udagram-frontend:v6
+
+eksctl delete cluster --region=us-east-1 --name=udagram-eks-cluster
