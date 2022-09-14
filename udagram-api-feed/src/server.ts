@@ -8,11 +8,11 @@ import bodyParser from 'body-parser';
 import {config} from './config/config';
 import {V0_FEED_MODELS } from './controllers/v0/model.index';
 
-
 (async () => {
-  await sequelize.addModels(V0_FEED_MODELS);
-  
 
+  console.info("Config data log" , {config})
+
+  await sequelize.addModels(V0_FEED_MODELS);
   console.debug("Initialize database connection...");
   await sequelize.sync();
 
@@ -41,7 +41,6 @@ import {V0_FEED_MODELS } from './controllers/v0/model.index';
   app.get( '/', async ( req, res ) => {
     res.send( '/api/v0/' );
   } );
-
 
   // Start the Server
   app.listen( port, () => {

@@ -104,3 +104,67 @@ Launch the frontend app locally.
 
 docker tag local-image:tagname new-repo:tagname
 docker push new-repo:tagname
+
+## AWS Kubernetes
+
+aws sts get-caller-identity
+kubectl config view --minify
+kubectl get svc
+kubectl get nodes
+kubectl get nodes -o wide
+
+kubectl apply -f deployment.yaml
+kubectl apply -f service.yaml
+
+kubectl replace --force -f reverseproxy.yaml
+
+kubectl get pods
+kubectl get pods -o wide
+kubectl get pods --watch
+kubectl get pods -n kube-system
+kubectl logs podname -p
+kubectl describe pod podname
+
+kubectl get deployment -o wide
+kubectl get deployments
+
+kubectl autoscale deployment backend-user --cpu-percent=70 --min=3 --max=5
+kubectl get hpa
+
+kubectl get services
+kubectl describe services
+{
+Name: my-app,
+Type: ClusterIP
+}
+kubectl cluster info dump
+
+connect to pod
+kubectl exec -it {POD NAME} bash
+curl http://my-app2-svc:8080/health
+
+To attach to a container in a pod, we can use the following command
+kubectl exec -it {pod_name} sh
+
+# The command below will ceates an external load balancer and assigns a fixed, external IP to the Service.
+
+kubectl expose deployment frontend --type=LoadBalancer --name=publicfrontend
+
+Check the deployment names and their pod status
+kubectl get deployments
+
+Create a Service object that exposes the frontend deployment
+The command below will ceates an external load balancer and assigns a fixed, external IP to the Service.
+kubectl expose deployment frontend --type=LoadBalancer --name=publicfrontend
+kubectl expose deployment reverseproxy --type=LoadBalancer --name=publicreverseproxy
+
+publicfrontend LoadBalancer 10.100.183.208 ad0b2c3be212c439e9eecfe776b926d9-227962102.us-east-1.elb.amazonaws.com 80:32432/TCP 2m16s
+publicreverseproxy LoadBalancer 10.100.247.122 ad73f7e80bad94c088de0ff341b20a51-404723933.us-east-1.elb.amazonaws.com 80:30532/TCP 74s
+
+Run these commands from the /udagram-frontend directory
+docker build . -t [Dockerhub-username]/udagram-frontend:v6
+docker push [Dockerhub-username]/udagram-frontend:v6
+
+Run these commands from the /udagram-deployment directory
+Rolling update the containers of "frontend" deployment
+kubectl set image deployment frontend frontend=[Dockerhub-username]/udagram-frontend:v6
