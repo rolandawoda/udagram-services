@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: frontend
-        image: rolandawoda/udagram-frontend:v1
+        image: rolandawoda/udagram-frontend:v2
         ports:
         - containerPort: 80
         resources:
