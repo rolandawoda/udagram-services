@@ -26,14 +26,14 @@ script:
   - docker tag udagram-api-feed rolandawoda/udagram-api-feed:v1 
 
   - docker build -t udagram-frontend ./udagram-frontend
-  - docker tag udagram-frontend rolandawoda/udagram-frontend:v1 
+  - docker tag udagram-frontend rolandawoda/udagram-frontend:v2 
 
 after_success: 
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
   - docker push rolandawoda/reverseproxy:v1
   - docker push rolandawoda/udagram-api-user:v1
   - docker push rolandawoda/udagram-api-feed:v1
-  - docker push rolandawoda/udagram-frontend:v1
+  - docker push rolandawoda/udagram-frontend:v2
 
 # deploy:
 #   provider: script
